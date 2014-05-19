@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package com.tracy.schoolweb.test;
+package com.tracy.schoolweb.test.repository;
 
 import com.tracy.schoolweb.app.conf.ConnectionConfig;
 import com.tracy.schoolweb.domain.AllYear;

@@ -10,7 +10,7 @@ import com.tracy.schoolweb.app.conf.ConnectionConfig;
 import com.tracy.schoolweb.domain.Assignment;
 import com.tracy.schoolweb.repository.AssignmentRepository;
 import com.tracy.schoolweb.services.TotalAssignmentService;
-import static com.tracy.schoolweb.test.AllYearRepositoryTest.ctx;
+import static com.tracy.schoolweb.test.repository.AllYearRepositoryTest.ctx;
 import java.util.List;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;

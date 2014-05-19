@@ -4,12 +4,12 @@
  * and open the template in the editor.
  */
 
-package com.tracy.schoolweb.test;
+package com.tracy.schoolweb.test.repository;
 
 import com.tracy.schoolweb.app.conf.ConnectionConfig;
 import com.tracy.schoolweb.domain.Address;
-import com.tracy.schoolweb.domain.Student;
-import com.tracy.schoolweb.repository.StudentRepository;
+import com.tracy.schoolweb.domain.Teacher;
+import com.tracy.schoolweb.repository.TeacherRepository;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.testng.Assert;
@@ -24,79 +24,77 @@ import org.testng.annotations.Test;
  *
  * @author Tracy
  */
-public class StudentRepositoryTest {
+public class TeacherRepositoryTest {
     
     public static ApplicationContext ctx;
     private long id;
-    private StudentRepository repo;
+    private TeacherRepository repo;
     
-    public StudentRepositoryTest() {
+    public TeacherRepositoryTest() {
     }
 
     // TODO add test methods here.
     // The methods must be annotated with annotation @Test. For example:
     //
     @Test
-    public void createStudent() {
-        
-        repo = ctx.getBean(StudentRepository.class);
+    public void createTeacher() {
+        repo = ctx.getBean(TeacherRepository.class);
         Address a = new Address.Builder(37)
                 .streetName("Orchid")
                 .areaName("Goodwood")
                 .areaCode("7460")
                 .build();
         
-        Student s = new Student.Builder("Tracy")
-                .lastName("Robb")
+        Teacher t = new Teacher.Builder("Tania")
+                .lastName("Ferrerai")
                 .address(a)
                 .build();
                 
-        repo.save(s);
-        id = s.getId();
-        Assert.assertNotNull(s);
+        repo.save(t);
+        id = t.getId();
+        Assert.assertNotNull(t);
     }
     
-    @Test(dependsOnMethods = "createStudent")
-    public void readStudent(){
+    @Test(dependsOnMethods = "createTeacher")
+    public void readTeacher(){
         
-        repo = ctx.getBean(StudentRepository.class);
-        Student s = repo.findOne(id);
-        Assert.assertEquals(s.getFirstName(), "Tracy");   
+        repo = ctx.getBean(TeacherRepository.class);
+        Teacher t = repo.findOne(id);
+        Assert.assertEquals(t.getFirstName(), "Tania");   
     }
 
-    @Test(dependsOnMethods = "readStudent")
-    private void updateStudent(){
+    @Test(dependsOnMethods = "readTeacher")
+    private void updateTeacher(){
         
-         repo = ctx.getBean(StudentRepository.class);
-         Student s = repo.findOne(id);
-         Student updatedS = new Student.Builder("Tracy")
-                .student(s)
+         repo = ctx.getBean(TeacherRepository.class);
+         Teacher t = repo.findOne(id);
+         Teacher updatedT = new Teacher.Builder("Tania")
+                .teacher(t)
                 .lastName("Killian")
-                 .build();
+                .build();
         
-         repo.save(updatedS);
+         repo.save(updatedT);
          
-         Student newStud = repo.findOne(id);
-         Assert.assertEquals(newStud.getLastName(), "Killian");
+         Teacher newTeach = repo.findOne(id);
+         Assert.assertEquals(newTeach.getLastName(), "Killian");
          
     }
     
-    @Test(dependsOnMethods = "updateStudent")
-    private void deleteStudent(){
-         repo = ctx.getBean(StudentRepository.class);
-         Student s = repo.findOne(id);
-         repo.delete(s);
+    @Test(dependsOnMethods = "updateTeacher")
+    private void deleteTeacher(){
+         repo = ctx.getBean(TeacherRepository.class);
+         Teacher t = repo.findOne(id);
+         repo.delete(t);
          
-         Student sDeleted = repo.findOne(id);
+         Teacher tDeleted = repo.findOne(id);
          
-         Assert.assertNull(sDeleted);
+         Assert.assertNull(tDeleted);
            
      }
 
     @BeforeClass
     public static void setUpClass() throws Exception {
-        
-         ctx = new AnnotationConfigApplicationContext(ConnectionConfig.class);
+        ctx = new AnnotationConfigApplicationContext(ConnectionConfig.class);
     }
 
     @AfterClass
